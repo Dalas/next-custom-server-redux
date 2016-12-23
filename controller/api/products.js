@@ -33,9 +33,9 @@ const products = [
 ];
 
 
-router.get('/', function(req, res) {
+router.get('/get-products', function(req, res) {
 
-    return res.renderReactComponent(req, res, '/main', {products: products});
+    return res.send({products: products});
 });
 
 module.exports = router;

@@ -46,7 +46,7 @@ export default function productListReducer(state = initialState, action) {
             return { ...state, fetching: true, errorMessage: '' };
 
         case actionTypes.FINISH_FETCHING_PRODUCTS:
-            return { ...state, fetching: true, products: action.products, errorMessage: action.errorMessage };
+            return { ...state, fetching: false, products: action.products, errorMessage: action.errorMessage };
 
         default:
             return state

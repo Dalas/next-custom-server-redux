@@ -26,14 +26,16 @@ export function fetchProducts (dispatch) {
 
         fetch('/api/v1/get-products')
             .then(function(response) {
-                console.log(response);
                 if (response.status >= 400) {
                     dispatch(finishFetchingPropducts([], "Something went wrong!"));
                 }
-                    dispatch(finishFetchingPropducts(response.toJSON(), ""));
+                else {
+                    response.json().then(data => {
+                        dispatch(finishFetchingPropducts(data.products, ""));
+                    });
+                }
             },
             function(error){
-                console.log(error);
                 dispatch(finishFetchingPropducts([], "Something went wrong!"));
             })
     }

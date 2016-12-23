@@ -18,7 +18,7 @@ export default () => {
 
                 .loader{
                     width: 100%;
-                    min-height: 100%;
+                    min-height: 50vh;;
                     background: url(/static/loader.gif) center center no-repeat;
                 }
             `}</style>

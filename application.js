@@ -1,8 +1,10 @@
 const express = require('express');
 const next = require('next');
+const bodyParser = require('body-parser');
 
 const router = require('./controller/main');
-const apiRouter = require('./controller/api/products');
+const productsApiRouter = require('./controller/api/products');
+const discountApiRouter = require('./controller/api/discount');
 
 const app = next({dir: '.', dev: true});
 const handle = app.getRequestHandler();
@@ -10,6 +12,9 @@ const handle = app.getRequestHandler();
 app.prepare()
     .then(() => {
         const server = express();
+
+        server.use(bodyParser.json());
+        server.use(bodyParser.urlencoded({ extended: true }));
 
         // simple middleware
         server.use(
@@ -20,7 +25,8 @@ app.prepare()
         );
 
         server.use(router);
-        server.use('/api/v1', apiRouter);
+        server.use('/api/v1', productsApiRouter);
+        server.use('/api/v1', discountApiRouter);
 
 
         // static serving

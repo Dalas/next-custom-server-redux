@@ -2,37 +2,27 @@
  * Created by yura on 19.12.16.
  */
 
-import { ENTER_PROMO, REMOVE_PROMO } from '../actions/ActionTypes';
+import { START_FETCHING_PROMOCODE, FINISH_FETCHING_PROMOCODE, REMOVE_PROMO } from '../actions/ActionTypes';
 import _ from 'lodash';
+
 
 const initialState = {
     promoCode: '',
     discount: 0,
-    entered: false
+    entered: false,
+    fetching: false
 };
-
-const discounts = {
-    discount10: 10,
-    discount20: 20,
-    discount30: 30,
-    discount40: 40,
-    discount50: 50
-};
-
-function getDiscount(promoCode) {
-    if (_.has(discounts, promoCode))
-        return discounts[ promoCode ];
-
-    else return 0;
-}
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case ENTER_PROMO:
-            return Object.assign({}, state, { promoCode: action.promoCode, discount: getDiscount(action.promoCode), entered: true });
+        case START_FETCHING_PROMOCODE:
+            return Object.assign({}, state, { fetching: true, promoCode: action.promoCode });
+
+        case FINISH_FETCHING_PROMOCODE:
+            return Object.assign({}, state, { fetching: false, entered: true, discount: action.discount });
 
         case REMOVE_PROMO:
-            return Object.assign({}, state, { promoCode: '', discount: 0, entered: false });
+            return Object.assign({}, state, { entered: false, promoCode: '', discount: 0 });
 
         default:
             return state;

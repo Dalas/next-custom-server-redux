@@ -4,7 +4,8 @@
 
 import PromoCodeComponent from '../components/PromoCodeComponent';
 import { connect } from 'react-redux';
-import { handlePromoCodeEnter, removePromoCode } from '../actions/CartActions';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/PromoCodeActions';
 
 const mapStateToProps = ( state ) => {
     return state.promoCode;
@@ -12,8 +13,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
     return {
-        handlePromoCodeEnter: (promoCode) => dispatch(handlePromoCodeEnter(promoCode)),
-        removePromoCode: () => dispatch(removePromoCode())
+        actions: bindActionCreators( actions, dispatch )
     }
 };
 

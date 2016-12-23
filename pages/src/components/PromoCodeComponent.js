@@ -21,7 +21,7 @@ export default class extends React.Component {
     }
 
     handlePromoCodeEnter() {
-        this.props.handlePromoCodeEnter( this.state.promoCode )
+        this.props.actions.fetchPromoCode( this.state.promoCode )
     }
 
     render() {
@@ -30,7 +30,7 @@ export default class extends React.Component {
             <p><input type="text" name="promo-code" onChange={ this.handlePromoCodeInputChange }/></p>;
 
         let button = this.props.entered ?
-            <button onClick={ this.props.removePromoCode }>Remove</button> :
+            <button onClick={ this.props.actions.removePromoCode }>Remove</button> :
             <button onClick={ this.handlePromoCodeEnter }>Enter</button>;
 
         return (

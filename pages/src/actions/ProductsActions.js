@@ -6,13 +6,13 @@ import { START_FETCHING_PRODUCTS, FINISH_FETCHING_PRODUCTS } from './ActionTypes
 import fetch from 'isomorphic-fetch';
 
 
-export function startFetchingPropducts () {
+export function startFetchingProducts () {
     return {
         type: START_FETCHING_PRODUCTS
     }
 }
 
-export function finishFetchingPropducts (products, errorMessage) {
+export function finishFetchingProducts (products, errorMessage) {
     return {
         type: FINISH_FETCHING_PRODUCTS,
         products: products,
@@ -22,21 +22,21 @@ export function finishFetchingPropducts (products, errorMessage) {
 
 export function fetchProducts (dispatch) {
     return dispatch => {
-        dispatch(startFetchingPropducts());
+        dispatch(startFetchingProducts());
 
         fetch('/api/v1/get-products')
             .then(function(response) {
                 if (response.status >= 400) {
-                    dispatch(finishFetchingPropducts([], "Something went wrong!"));
+                    dispatch(finishFetchingProducts([], "Something went wrong!"));
                 }
                 else {
                     response.json().then(data => {
-                        dispatch(finishFetchingPropducts(data.products, ""));
+                        dispatch(finishFetchingProducts(data.products, ""));
                     });
                 }
             },
             function(error){
-                dispatch(finishFetchingPropducts([], "Something went wrong!"));
+                dispatch(finishFetchingProducts([], "Something went wrong!"));
             })
     }
 }
